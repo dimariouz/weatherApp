@@ -8,20 +8,6 @@
 import Foundation
 import Alamofire
 
-private enum Paths {
-    case cityWeather(id: Int)
-    case cityForecast(id: Int)
-    
-    var path: String {
-        switch self {
-        case .cityWeather(let id):
-            return "weather?id=\(id)"
-        case .cityForecast(let id):
-            return "forecast?id=\(id)"
-        }
-    }
-}
-
 protocol WeatherServiceProtocol: Any {
     func getWeatherList() async throws -> [ListCityWeather]
     func getSingleCityWeather(with id: Int) async throws -> SingleCityWeatherModel
@@ -31,6 +17,9 @@ final class WeatherService: WeatherServiceProtocol {
     
     let networkService: NetworkServiceProtocol
     
+    let metricParams = ["units": "metric",
+                        "appid": Constants.APIs.apiKey]
+    
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
     }
@@ -39,7 +28,7 @@ final class WeatherService: WeatherServiceProtocol {
         var cities = [ListCityWeather]()
         for city in Cities.allCases {
             do {
-                let city: ListCityWeather = try await networkService.get(path: Paths.cityWeather(id: city.id).path)
+                let city: ListCityWeather = try await networkService.get(path: Paths.cityWeather(id: city.id).path, params: metricParams.merge(Paths.cityWeather(id: city.id).idParam))
                 cities.append(city)
             } catch {
                 throw error
@@ -49,6 +38,6 @@ final class WeatherService: WeatherServiceProtocol {
     }
     
     func getSingleCityWeather(with id: Int) async throws -> SingleCityWeatherModel {
-        try await networkService.get(path: Paths.cityForecast(id: id).path)
+        try await networkService.get(path: Paths.cityForecast(id: id).path, params: metricParams.merge(Paths.cityForecast(id: id).idParam))
     }
 }
