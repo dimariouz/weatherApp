@@ -13,6 +13,7 @@ class MultiCityViewModel: ObservableObject {
     let weatherService: WeatherServiceProtocol
     
     @Published var citiesList: [ListCityWeather] = []
+    @Published var isLoading = false
     private var canellable: Set<AnyCancellable> = []
     
     init(weatherService: WeatherServiceProtocol = WeatherService()) {
@@ -20,23 +21,14 @@ class MultiCityViewModel: ObservableObject {
     }
     
     func getCityWeather() {
+        isLoading = true
         weatherService.getWeatherList()
-            .sink { completion in
-                print(completion)
-            } receiveValue: { list in
-                print(list.count)
+            .sink { [unowned self] completion in
+                // handle error
+                isLoading = false
+            } receiveValue: { [unowned self] list in
+                citiesList = list
             }
             .store(in: &canellable)
-//        let url = URL(string: Constants.APIs.host + Paths.cityWeather(id: 2643743).path)!
-//        URLSession.shared.dataTaskPublisher(for: url)
-//            .map(\.data)
-//            .decode(type: [ListCityWeather].self, decoder: JSONDecoder())
-//            .receive(on: RunLoop.main)
-//            .sink { completion in
-//                print(completion)
-//            } receiveValue: { list in
-//                print(list.count)
-//            }
-//            .store(in: &canellable)
     }
 }

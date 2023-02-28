@@ -12,8 +12,18 @@ struct MultiCityView: View {
     @StateObject private var viewModel = MultiCityViewModel()
     
     var body: some View {
-        List(viewModel.citiesList, id: \.id) { city in
-            Text(city.name)
+        ZStack {
+            List(viewModel.citiesList, id: \.id) { city in
+                WeatherCityRowView(model: city, metric: .celsius)
+                    .listRowBackground(Color.clear)
+            }
+            .listStyle(.plain)
+            if viewModel.isLoading {
+                ProgressView()
+                    .scaleEffect(2)
+                    .progressViewStyle(.circular)
+                    
+            }
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("Weather Combine")

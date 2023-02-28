@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListCityWeather: Codable {
+struct ListCityWeather: Codable, Identifiable {
     let id: Int
     let coordinates: Coodinates
     let weather: [Weather]
