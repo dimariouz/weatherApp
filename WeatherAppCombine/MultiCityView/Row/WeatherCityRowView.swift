@@ -19,7 +19,7 @@ struct WeatherCityRowView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(model.name)
+                Text("\(model.name), \(model.system.country)")
                     .font(.system(size: 17, weight: .bold))
                     .foregroundColor(.white)
                 Spacer()

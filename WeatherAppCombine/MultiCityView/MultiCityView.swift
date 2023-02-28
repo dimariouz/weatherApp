@@ -9,12 +9,13 @@ import SwiftUI
 
 struct MultiCityView: View {
     
+    @EnvironmentObject var platform: Platform
     @StateObject private var viewModel = MultiCityViewModel()
     
     var body: some View {
         ZStack {
             List(viewModel.citiesList, id: \.id) { city in
-                WeatherCityRowView(model: city, metric: .celsius)
+                WeatherCityRowView(model: city, metric: platform.metric)
                     .listRowBackground(Color.clear)
             }
             .listStyle(.plain)
@@ -28,8 +29,10 @@ struct MultiCityView: View {
         .navigationBarBackButtonHidden()
         .navigationTitle("Weather Combine")
         .toolbar {
-            Button("°C<->°F") {
-                print("About tapped!")
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("°C<->°F") {
+                    platform.metric.toogle()
+                }
             }
         }
         .onAppear {

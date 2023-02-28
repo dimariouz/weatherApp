@@ -63,6 +63,7 @@
 		097D7DA029AD23ED0007BDF8 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D7D9F29AD23ED0007BDF8 /* Dictionary.swift */; };
 		097D7DA129AD23ED0007BDF8 /* Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D7D9F29AD23ED0007BDF8 /* Dictionary.swift */; };
 		097D7DA429AD4D530007BDF8 /* WeatherCityRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D7DA329AD4D520007BDF8 /* WeatherCityRowView.swift */; };
+		097D7DA829AE7CB00007BDF8 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097D7DA729AE7CB00007BDF8 /* Platform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		097D7D9C29ACD9DB0007BDF8 /* Paths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		097D7D9F29AD23ED0007BDF8 /* Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dictionary.swift; sourceTree = "<group>"; };
 		097D7DA329AD4D520007BDF8 /* WeatherCityRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCityRowView.swift; sourceTree = "<group>"; };
+		097D7DA729AE7CB00007BDF8 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +374,7 @@
 				097D7D9129ABE2B70007BDF8 /* Router.swift */,
 				097D7D9629ABEBF00007BDF8 /* NetworkService.swift */,
 				097D7D9A29ACD9A90007BDF8 /* WeatherService.swift */,
+				097D7DA729AE7CB00007BDF8 /* Platform.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				097D7D8F29ABC7ED0007BDF8 /* MultiCityViewModel.swift in Sources */,
 				097D7DA129AD23ED0007BDF8 /* Dictionary.swift in Sources */,
 				097D7D9E29ACD9DC0007BDF8 /* Paths.swift in Sources */,
+				097D7DA829AE7CB00007BDF8 /* Platform.swift in Sources */,
 				097D7D9329ABEB040007BDF8 /* ListCityWeather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
