@@ -9,4 +9,11 @@ import Foundation
 
 class Platform: ObservableObject {
     @Published var metric: MetricState = .celsius
+    let networkService: NetworkServiceProtocol
+    let weatherService: WeatherServiceProtocol
+    
+    init() {
+        networkService = NetworkService()
+        weatherService = WeatherService(networkService: networkService)
+    }
 }

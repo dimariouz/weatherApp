@@ -10,14 +10,20 @@ import Combine
 
 class MultiCityViewModel: ObservableObject {
     
-    let weatherService: WeatherServiceProtocol
+    private let router: Router
+    private let weatherService: WeatherServiceProtocol
     
     @Published var citiesList: [ListCityWeather] = []
     @Published var isLoading = false
     private var canellable: Set<AnyCancellable> = []
     
-    init(weatherService: WeatherServiceProtocol = WeatherService()) {
+    init(router: Router, weatherService: WeatherServiceProtocol) {
         self.weatherService = weatherService
+        self.router = router
+    }
+    
+    func showSingleCity(with city: ListCityWeather) {
+        router.showSingleCityView(city: city)
     }
     
     func getCityWeather() {

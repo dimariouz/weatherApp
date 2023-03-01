@@ -7,49 +7,46 @@
 
 import SwiftUI
 
-struct RouterView<T: Hashable, Content: View>: View {
+final class Router: ObservableObject {
+    static let shared = Router()
+
+    @Published var path = [Route]()
     
-    @ObservedObject var router: Router<T>
+    func showSingleCityView(city: ListCityWeather) {
+        path.append(.singleCityView(city))
+    }
+
+    func showMultiCityView() {
+        path.append(.multiCityView)
+    }
     
-    @ViewBuilder var buildView: (T) -> Content
+    func backToRoot() {
+        path.removeAll()
+    }
     
-    var body: some View {
-        NavigationStack(path: $router.paths) {
-            buildView(router.root)
-            .navigationDestination(for: T.self) { path in
-                buildView(path)
-            }
-        }
-        .environmentObject(router)
+    func back() {
+        path.removeLast()
     }
 }
 
-final class Router<T: Hashable>: ObservableObject {
-    @Published var root: T
-    @Published var paths: [T] = []
-
-    init(root: T) {
-        self.root = root
-    }
-
-    func push(_ path: T) {
-        paths.append(path)
-    }
-
-    func pop() {
-        paths.removeLast()
-    }
-
-    func updateRoot(root: T) {
-        self.root = root
-    }
-
-    func popToRoot(){
-       paths = []
-    }
-}
-
-enum Path {
-    case splash
+enum Route {
     case multiCityView
+    case singleCityView(ListCityWeather)
+}
+
+extension Route: Hashable {
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .multiCityView:
+            hasher.combine("multiCityView".hashValue)
+        case .singleCityView(let value):
+            hasher.combine("singleCityView \(value.id)".hashValue)
+        }
+    }
+}
+
+extension Route: Equatable {
+    static func ==(lhs: Route, rhs: Route) -> Bool {
+        lhs.hashValue == rhs.hashValue
+    }
 }

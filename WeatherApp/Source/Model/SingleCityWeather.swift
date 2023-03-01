@@ -12,7 +12,8 @@ struct SingleCityWeatherModel: Codable {
     let city: City
 }
 
-struct Forecast: Codable {
+struct Forecast: Codable, Identifiable {
+    var id = UUID()
     let date: TimeInterval
     let main: MainCondition
     let weather: [Weather]

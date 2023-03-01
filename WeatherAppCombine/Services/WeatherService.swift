@@ -19,7 +19,7 @@ final class WeatherService: WeatherServiceProtocol {
     private var metricParams = ["units": "metric",
                                  "appid": Constants.APIs.apiKey]
     
-    init(networkService: NetworkServiceProtocol = NetworkService()) {
+    init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
     }
     
@@ -35,5 +35,4 @@ final class WeatherService: WeatherServiceProtocol {
     func getSingleCityWeather(with id: Int) -> AnyPublisher<SingleCityWeatherModel, Error> {
         networkService.get(path: Paths.cityForecast(id: id).path, params: metricParams.merge(Paths.cityForecast(id: id).idParam))
     }
-    
 }

@@ -11,39 +11,33 @@ struct SplashView: View {
     private enum C {
         static let routeDelay: TimeInterval = 3
     }
-    
-    @ObservedObject var router = Router<Path>(root: .splash)
+
+    let router: Router
     
     var body: some View {
-        RouterView(router: router) { path in
-            switch path {
-            case .splash:
-                ZStack {
-                Color.indigo
-                    .ignoresSafeArea()
+        
+        ZStack {
+            Color.indigo
+                .ignoresSafeArea()
+            VStack {
+                Text("Weather App Combine")
+                    .foregroundColor(.white)
+                    .font(.system(size: 30, weight: .semibold))
                 VStack {
-                    Text("Weather App Combine")
-                        .foregroundColor(.white)
-                        .font(.system(size: 30, weight: .semibold))
-                    VStack {
-                        HStack {
-                            Image("01d")
-                            Image("02d")
-                        }
-                        HStack {
-                            Image("09d")
-                            Image("13d")
-                        }
+                    HStack {
+                        Image("01d")
+                        Image("02d")
+                    }
+                    HStack {
+                        Image("09d")
+                        Image("13d")
                     }
                 }
-            }
-            case .multiCityView:
-                MultiCityView()
             }
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + C.routeDelay) {
-                router.push(.multiCityView)
+                router.showMultiCityView()
             }
         }
     }
@@ -51,6 +45,6 @@ struct SplashView: View {
 
 struct SplashView_Previews: PreviewProvider {
     static var previews: some View {
-        SplashView()
+        SplashView(router: Router())
     }
 }
