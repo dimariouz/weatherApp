@@ -14,7 +14,7 @@ struct MultiCityView: View {
     
     var body: some View {
         ZStack {
-            List(viewModel.citiesList, id: \.id) { city in
+            List(viewModel.searchedCitiesList, id: \.id) { city in
                 WeatherCityRowView(model: city, metric: platform.metric)
                     .listRowBackground(Color.clear)
                     .onTapGesture {
@@ -29,6 +29,7 @@ struct MultiCityView: View {
                     
             }
         }
+        .searchable(text: $viewModel.searchText)
         .navigationBarBackButtonHidden()
         .navigationTitle("Weather Combine")
         .toolbar {

@@ -13,13 +13,26 @@ class MultiCityViewModel: ObservableObject {
     private let router: Router
     private let weatherService: WeatherServiceProtocol
     
-    @Published var citiesList: [ListCityWeather] = []
+    @Published private var citiesList: [ListCityWeather] = []
+    @Published var searchedCitiesList: [ListCityWeather] = []
     @Published var isLoading = false
+    @Published var searchText = ""
+    
     private var canellable: Set<AnyCancellable> = []
     
     init(router: Router, weatherService: WeatherServiceProtocol) {
         self.weatherService = weatherService
         self.router = router
+        
+        $searchText
+            .debounce(for: .milliseconds(200), scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .sink(receiveCompletion: { _ in
+                //
+            }, receiveValue: { [unowned self] searchText in
+                self.searchedCitiesList = searchText.isEmpty ? self.citiesList : self.citiesList.filter { $0.name.lowercased().contains(searchText.lowercased()) }
+            })
+            .store(in: &canellable)
     }
     
     func showSingleCity(with city: ListCityWeather) {
@@ -34,6 +47,7 @@ class MultiCityViewModel: ObservableObject {
                 isLoading = false
             } receiveValue: { [unowned self] list in
                 citiesList = list
+                searchedCitiesList = list
             }
             .store(in: &canellable)
     }
