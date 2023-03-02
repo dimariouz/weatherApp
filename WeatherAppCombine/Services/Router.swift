@@ -15,6 +15,10 @@ final class Router: ObservableObject {
     func showSingleCityView(city: ListCityWeather) {
         path.append(.singleCityView(city))
     }
+    
+    func showMapView(city: ListCityWeather) {
+        path.append(.mapView(city))
+    }
 
     func showMultiCityView() {
         path.append(.multiCityView)
@@ -32,6 +36,7 @@ final class Router: ObservableObject {
 enum Route {
     case multiCityView
     case singleCityView(ListCityWeather)
+    case mapView(ListCityWeather)
 }
 
 extension Route: Hashable {
@@ -41,6 +46,8 @@ extension Route: Hashable {
             hasher.combine("multiCityView".hashValue)
         case .singleCityView(let value):
             hasher.combine("singleCityView \(value.id)".hashValue)
+        case .mapView(let value):
+            hasher.combine("mapView \(value.id)".hashValue)
         }
     }
 }

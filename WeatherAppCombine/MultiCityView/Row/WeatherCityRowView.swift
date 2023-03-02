@@ -15,6 +15,7 @@ struct WeatherCityRowView: View {
     
     let model: ListCityWeather
     let metric: MetricState
+    var openMapClosure: () -> Void
     
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct WeatherCityRowView: View {
                             .font(.system(size: 17, weight: .regular))
                             .foregroundColor(.white)
                         Button(action: {
-                            print(1)
+                            openMapClosure()
                         }) {
                             Text("Open Map")
                         }
@@ -70,6 +71,6 @@ struct WeatherCityRowView: View {
 
 struct WeatherCityRowView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherCityRowView(model: ListCityWeather(id: 0, coordinates: Coodinates(lon: 1, lat: 1), weather: [.init(id: 0, main: "Clouds", description: "scattered clouds", icon: "03n")], main: MainCondition(temp: 1, feelsLike: 22, tempMin: 23, tempMax: 44), name: "London", system: .init(country: "asd")), metric: .celsius)
+        WeatherCityRowView(model: ListCityWeather(id: 0, coordinates: Coodinates(lon: 1, lat: 1), weather: [.init(id: 0, main: "Clouds", description: "scattered clouds", icon: "03n")], main: MainCondition(temp: 1, feelsLike: 22, tempMin: 23, tempMax: 44), name: "London", system: .init(country: "asd")), metric: .celsius, openMapClosure: {})
     }
 }

@@ -22,6 +22,8 @@ struct WeatherAppCombineApp: App {
                             makeSingleCityView(with: router, and: city)
                         case .multiCityView:
                             makeMultiCityView(with: router)
+                        case .mapView(let city):
+                            makeMapView(city: city)
                         }
                     }
             }
@@ -41,5 +43,9 @@ extension WeatherAppCombineApp {
     
     @ViewBuilder func makeSingleCityView(with router: Router, and city: ListCityWeather) -> some View {
         SingleCityView(viewModel: SingleCityViewModel(listCity: city, router: router, weatherService: platform.weatherService))
+    }
+    
+    @ViewBuilder func makeMapView(city: ListCityWeather) -> some View {
+        MapView(city: city)
     }
 }

@@ -39,6 +39,10 @@ class MultiCityViewModel: ObservableObject {
         router.showSingleCityView(city: city)
     }
     
+    func openMap(with city: ListCityWeather) {
+        router.showMapView(city: city)
+    }
+    
     func getCityWeather() {
         isLoading = true
         weatherService.getWeatherList()

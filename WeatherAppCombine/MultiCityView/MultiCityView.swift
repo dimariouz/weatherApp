@@ -15,11 +15,13 @@ struct MultiCityView: View {
     var body: some View {
         ZStack {
             List(viewModel.searchedCitiesList, id: \.id) { city in
-                WeatherCityRowView(model: city, metric: platform.metric)
-                    .listRowBackground(Color.clear)
-                    .onTapGesture {
-                        viewModel.showSingleCity(with: city)
-                    }
+                WeatherCityRowView(model: city, metric: platform.metric) {
+                    viewModel.openMap(with: city)
+                }
+                .listRowBackground(Color.clear)
+                .onTapGesture {
+                    viewModel.showSingleCity(with: city)
+                }
             }
             .listStyle(.plain)
             if viewModel.isLoading {
